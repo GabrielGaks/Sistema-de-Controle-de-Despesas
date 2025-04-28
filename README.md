@@ -7,6 +7,7 @@ Um aplicativo web completo para gerenciamento de finanças pessoais, com recurso
 ## 📝 Descrição
 
 Finance Master é uma aplicação web para controle financeiro pessoal que permite aos usuários gerenciar receitas, despesas e acompanhar sua saúde financeira de forma intuitiva e detalhada. O sistema oferece diversos recursos visuais como gráficos, calendário financeiro e painéis de controle, tudo com uma interface moderna e responsiva.
+Essa Aplicação foi desenvolvida inteiramente por vibe coding e pelos meus conhecimentos em js , html e css.
 
 ## 🚀 Funcionalidades
 
@@ -96,6 +97,9 @@ Finance Master é uma aplicação web para controle financeiro pessoal que permi
 
 ## 🔜 Próximas Atualizações
 
+- Atualização dos temas escuros e claros ( no momento o tema escuro esta funcionando apenas)
+- Perfil editavel
+- Sincronização com bd
 - Sincronização com nuvem
 - Notificações de orçamento
 - Metas financeiras
