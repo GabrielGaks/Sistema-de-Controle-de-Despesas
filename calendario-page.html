@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendário - Finance Master</title>
+    
+    <!-- Script anti-flash (deve ser o primeiro item no head) -->
+    <script>
+        (function() {
+            // Esconder HTML para prevenir flash
+            document.documentElement.style.visibility = 'hidden';
+            // Verificar tema
+            var isDark = localStorage.getItem('isDarkMode') === 'true';
+            // Aplicar tema escuro imediatamente se necessário
+            if (isDark) {
+                document.documentElement.classList.add('dark-mode');
+                document.documentElement.style.backgroundColor = '#1a1c23';
+            }
+            // Restaurar visibilidade quando o DOM estiver pronto
+            document.addEventListener('DOMContentLoaded', function() {
+                document.documentElement.style.visibility = '';
+            });
+        })();
+    </script>
+    
+    <!-- Preload CSS para prevenir flash de tela branca -->
+    <link rel="stylesheet" href="css/preload.css">
+    <script src="js/preload.js"></script>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="stylecalendario.css">
+    <link rel="stylesheet" href="sylecalendario2.css">
+    <link rel="stylesheet" href="css/calendar-styles.css">
+    <link rel="stylesheet" href="css/calendar-dropdown.css">
+    <link rel="stylesheet" href="css/theme-styles.css">
+    <link rel="stylesheet" href="css/transaction-styles.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap">
+</head>
+<body class="bg-gray-100">
+    <!-- Elemento de transição de página será inserido pelo preload.js -->
+
+    <div class="w-[1200px] mx-auto bg-gray-50 shadow-xl rounded-xl font-sans overflow-hidden my-8 page-content">
+        <header class="bg-gradient-to-r from-blue-600 to-blue-800 text-white p-6">
+            <div class="flex justify-between items-center">
+                <h1 class="text-3xl font-bold">Finance Master</h1>
+                <div class="flex space-x-4">
+                    <a href="index2.html" class="bg-white bg-opacity-20 hover:bg-opacity-30 transition-all duration-300 rounded-lg px-4 py-2 flex items-center">
+                        <span class="material-symbols-outlined mr-2">dashboard</span>
+                        Dashboard
+                    </a>
+                    <a href="calendario-page.html" class="bg-white bg-opacity-40 hover:bg-opacity-50 transition-all duration-300 rounded-lg px-4 py-2 flex items-center">
+                        <span class="material-symbols-outlined mr-2">calendar_month</span>
+                        Calendário
+                    </a>
+                    <a href="settings-page.html" class="bg-white bg-opacity-20 hover:bg-opacity-30 transition-all duration-300 rounded-lg px-4 py-2 flex items-center">
+                        <span class="material-symbols-outlined mr-2">settings</span>
+                        Settings
+                    </a>
+                    <a href="profile-page.html" class="bg-white bg-opacity-20 hover:bg-opacity-30 transition-all duration-300 rounded-lg px-4 py-2 flex items-center">
+                        <span class="material-symbols-outlined mr-2">person</span>
+                        Profile
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <div class="p-6">
+            <div class="grid grid-cols-3 gap-6 mb-8">
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 transform hover:-translate-y-1 finance-card">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-xl font-semibold">Saldo Atual</h2>
+                        <span class="material-symbols-outlined text-blue-600">account_balance_wallet</span>
+                    </div>
+                    <p class="text-4xl font-bold text-blue-600" id="current-balance">R$ 0,00</p>
+                    <p class="text-sm text-gray-500 mt-2" id="last-update">Atualizado: Hoje às 10:45</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 transform hover:-translate-y-1 finance-card">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-xl font-semibold">Receitas</h2>
+                        <span class="material-symbols-outlined text-green-600">trending_up</span>
+                    </div>
+                    <p class="text-4xl font-bold text-green-600" id="total-income">R$ 0,00</p>
+                    <p class="text-sm text-gray-500 mt-2">Este mês</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 transform hover:-translate-y-1 finance-card">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-xl font-semibold">Despesas</h2>
+                        <span class="material-symbols-outlined text-red-600">trending_down</span>
+                    </div>
+                    <p class="text-4xl font-bold text-red-600" id="total-expenses">R$ 0,00</p>
+                    <p class="text-sm text-gray-500 mt-2">Este mês</p>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl shadow-md mb-8">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl font-semibold">Calendário Financeiro</h2>
+                    <div class="flex space-x-3">
+                        <div class="relative" id="month-selector">
+                            <button class="cursor-pointer bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 px-3 py-1 rounded-md flex items-center text-sm" id="month-button">
+                                <span class="material-symbols-outlined mr-1 text-sm">calendar_today</span>
+                                <span id="current-month">Março 2025</span>
+                                <span class="material-symbols-outlined ml-1 text-sm">expand_more</span>
+                            </button>
+                            <div class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10 calendar-dropdown" id="month-dropdown">
+                                <div class="p-2">
+                                    <div class="grid grid-cols-3 gap-1 mb-2">
+                                        <button class="text-center p-1 hover:bg-blue-50 rounded text-sm month-option" data-month="0">Jan</button>
+                                        <button class="text-center p-1 hover:bg-blue-50 rounded text-sm month-option" data-month="1">Fev</button>
+                                        <button class="text-center p-1 hover:bg-blue-50 rounded text-sm month-option" data-month="2">Mar</button>
+                                        <button class="text-center p-1 hover:bg-blue-50 rounded text-sm month-option" data-month="3">Abr</button>
+                                        <button class="text-center p-1 bg-blue-100 rounded text-sm font-medium month-option" data-month="4">Mai</button>
+                                        <button class="text-center p-1 hover:bg-blue-50 rounded text-sm month-option" data-month="5">Jun</button>
+                                        <button class="text-center p-1 hover:bg-blue-50 rounded text-sm month-option" data-month="6">Jul</button>
+                                        <button class="text-center p-1 hover:bg-blue-50 rounded text-sm month-option" data-month="7">Ago</button>
+                                        <button class="text-center p-1 hover:bg-blue-50 rounded text-sm month-option" data-month="8">Set</button>
+                                        <button class="text-center p-1 hover:bg-blue-50 rounded text-sm month-option" data-month="9">Out</button>
+                                        <button class="text-center p-1 hover:bg-blue-50 rounded text-sm month-option" data-month="10">Nov</button>
+                                        <button class="text-center p-1 hover:bg-blue-50 rounded text-sm month-option" data-month="11">Dez</button>
+                                    </div>
+                                    <div class="pt-2 border-t">
+                                        <button class="w-full text-center p-1 hover:bg-blue-50 rounded text-sm font-medium year-option" data-year="2023">2023</button>
+                                        <button class="w-full text-center p-1 hover:bg-blue-50 rounded text-sm font-medium year-option" data-year="2024">2024</button>
+                                        <button class="w-full text-center p-1 bg-blue-100 rounded text-sm font-medium year-option" data-year="2025">2025</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex bg-gray-100 dark:bg-gray-700 rounded-md overflow-hidden">
+                            <button class="px-3 py-1 bg-blue-600 text-white text-sm" id="view-month">Mês</button>
+                            <button class="px-3 py-1 hover:bg-gray-200 dark:hover:bg-gray-600 text-sm transition-colors" id="view-year">Ano</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-7 gap-2 mb-4" id="calendar-days">
+                    <div class="text-center font-medium text-gray-600 py-2">Dom</div>
+                    <div class="text-center font-medium text-gray-600 py-2">Seg</div>
+                    <div class="text-center font-medium text-gray-600 py-2">Ter</div>
+                    <div class="text-center font-medium text-gray-600 py-2">Qua</div>
+                    <div class="text-center font-medium text-gray-600 py-2">Qui</div>
+                    <div class="text-center font-medium text-gray-600 py-2">Sex</div>
+                    <div class="text-center font-medium text-gray-600 py-2">Sáb</div>
+                </div>
+                
+                <div class="grid grid-cols-7 gap-2" id="calendar-dates" style="min-height: 320px;">
+                    <!-- Calendar dates will be generated by JavaScript -->
+                    <!-- Added min-height to ensure the calendar is visible even before JavaScript loads -->
+                </div>
+                
+                <div class="border-t pt-4 mt-4 hidden" id="transaction-details">
+                    <div class="grid grid-cols-6 gap-6">
+                        <div class="col-span-3">
+                            <div class="p-4 rounded-lg">
+                                <div class="flex justify-between items-center mb-4">
+                                    <h3 class="font-medium" id="selected-date-title">Transações em 15 de Maio, 2023</h3>
+                                    <span class="text-green-600 font-medium" id="selected-date-total">+R$ 0,00</span>
+                                </div>
+                                
+                                <div class="space-y-3" id="selected-date-transactions" style="max-height: 310px; overflow-y: auto; padding-right: 10px;">
+                                    <!-- Transactions for selected date will be displayed here -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-span-3 relative">
+                            <div class="p-4 rounded-lg h-full">
+                                <h3 class="font-medium mb-3">Distribuição de Despesas</h3>
+                                <div class="flex justify-center items-center h-56">
+                                    <canvas id="date-expense-chart" width="200" height="200"></canvas>
+                                </div>
+                                
+                                <div class="grid grid-cols-2 gap-2 mt-2" id="expense-categories-legend">
+                                    <!-- Legend will be generated by JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="bg-gray-100 p-6 mt-8">
+            <div class="flex justify-between items-center">
+                <p class="text-gray-600">&copy; 2023 Finance Master. Todos os direitos reservados.</p>
+                <div class="flex space-x-4">
+                    <button class="text-gray-600 hover:text-blue-600 transition-colors">
+                        <span class="material-symbols-outlined">help</span>
+                    </button>
+                    <button class="text-gray-600 hover:text-blue-600 transition-colors">
+                        <span class="material-symbols-outlined">support_agent</span>
+                    </button>
+                    <button class="text-gray-600 hover:text-blue-600 transition-colors">
+                        <span class="material-symbols-outlined">info</span>
+                    </button>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="js/app2.js"></script>
+    <script src="js/calendario.js"></script>
+    <script src="js/theme.js"></script>
+    <script>
+        // Carregamento imediato da página sem delay
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mostrar conteúdo da página imediatamente
+            const pageContent = document.querySelector('.page-content');
+            pageContent.style.opacity = '1';
+        });
+    </script>
+</body>
+</html>

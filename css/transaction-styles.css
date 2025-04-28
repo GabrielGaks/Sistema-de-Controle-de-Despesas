@@ -1,0 +1,228 @@
+/* Transaction List Styles with Rounded Font */
+
+/* Apply rounded font to transaction items */
+.transaction-item {
+    font-family: 'Nunito', 'Quicksand', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border-radius: 12px; /* Aumentando o arredondamento */
+    margin-bottom: 10px;
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    background-color: #ffffff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    border: none;
+    transform-style: preserve-3d;
+    perspective: 1200px;
+    will-change: transform, box-shadow;
+}
+
+.transaction-item:hover {
+    transform: translateY(-4px) scale(1.02) rotateX(1.5deg);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+    z-index: 10;
+}
+
+/* Melhorando o estilo do conteúdo das transações */
+.transaction-item .transaction-info {
+    transform: translateZ(10px); /* Efeito 3D sutil */
+}
+
+/* Style the transaction description with more pleasant font */
+.transaction-description {
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+.transaction-item:hover .transaction-description {
+    color: #3b82f6; /* Azul que se destaca mas não é muito escuro */
+}
+
+.transaction-details {
+    font-size: 0.9rem;
+    color: #666;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Transaction icon styles */
+.transaction-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    margin-right: 12px;
+    flex-shrink: 0;
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    transform: translateZ(20px);
+    will-change: transform;
+}
+
+.transaction-item:hover .transaction-icon {
+    transform: translateZ(25px) scale(1.08) rotate(1deg);
+}
+
+.transaction-icon.income {
+    background-color: rgba(46, 125, 50, 0.1);
+    color: #2e7d32;
+}
+
+.transaction-icon.expense {
+    background-color: rgba(198, 40, 40, 0.1);
+    color: #c62828;
+}
+
+/* Remover limitação das transações recentes */
+#transactions-list {
+    max-height: 400px; /* Altura fixa para permitir scroll */
+    overflow-y: auto; /* Habilitar scroll vertical somente quando necessário */
+    padding: 0.5rem 0.5rem 0.5rem 0.5rem; /* Espaçamento interno */
+    margin-right: -0.5rem; /* Compensar o espaço da barra de rolagem */
+    scrollbar-width: thin; /* Firefox - barra de rolagem fina */
+    scrollbar-color: rgba(0,0,0,0.2) transparent; /* Cor da barra de rolagem no Firefox */
+}
+
+/* Estilização da barra de rolagem para Chrome, Edge e Safari */
+#transactions-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+#transactions-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#transactions-list::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,0.2);
+    border-radius: 20px;
+}
+
+/* Tema escuro para barra de rolagem */
+.dark-mode #transactions-list {
+    scrollbar-color: rgba(255,255,255,0.2) transparent;
+}
+
+.dark-mode #transactions-list::-webkit-scrollbar-thumb {
+    background-color: rgba(255,255,255,0.2);
+}
+
+/* Ajuste para o container de transações não ficar tão largo */
+.grid-cols-2 > div {
+    max-width: 100%;
+}
+
+/* Ajustes específicos para as transações no calendário */
+#selected-date-transactions .transaction-item {
+    height: 58px; /* Altura fixa para cada transação */
+    margin-bottom: 6px;
+    overflow: hidden;
+}
+
+#selected-date-transactions {
+    max-height: 310px; /* Altura para mostrar ~5 transações */
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0,0,0,0.2) transparent;
+    padding-right: 10px;
+}
+
+/* Estilização da barra de rolagem personalizada */
+#selected-date-transactions::-webkit-scrollbar {
+    width: 6px;
+    background: transparent;
+}
+
+#selected-date-transactions::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,0.2);
+    border-radius: 10px;
+}
+
+.dark-mode #selected-date-transactions::-webkit-scrollbar-thumb {
+    background-color: rgba(255,255,255,0.2);
+}
+
+#selected-date-transactions .flex {
+    transform-style: preserve-3d;
+    perspective: 1200px;
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    margin-bottom: 8px;
+    border-radius: 10px;
+    will-change: transform, box-shadow;
+}
+
+#selected-date-transactions .flex:hover {
+    transform: translateY(-3px) scale(1.02) rotateX(1.5deg);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+    z-index: 10;
+}
+
+/* Animation for icon selection */
+.icon-option.animate-select {
+    animation: selectPulse 0.6s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+@keyframes selectPulse {
+    0% { transform: scale(1); }
+    40% { transform: scale(1.15); }
+    70% { transform: scale(0.95); }
+    100% { transform: scale(1.1); }
+}
+
+/* Adicionando animação fluida para as transações quando aparecem */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.transaction-item {
+    animation: fadeInUp 0.65s cubic-bezier(0.3, 0, 0.2, 1) forwards;
+    animation-delay: calc(var(--index, 0) * 0.08s);
+}
+
+/* Ajustes para tema escuro */
+.dark-mode .transaction-item {
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.dark-mode .transaction-item:hover {
+    box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+}
+
+/* Icon selector styles */
+.icon-selector {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.icon-option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    background-color: #f5f5f5;
+    will-change: transform, background-color;
+}
+
+.icon-option:hover {
+    background-color: #e0e0e0;
+    transform: scale(1.08);
+}
+
+.icon-option.selected {
+    background-color: #e3f2fd;
+    border: 2px solid #2196f3;
+    transform: scale(1.1);
+}

@@ -1,0 +1,137 @@
+/* Estilos específicos para o dropdown do calendário */
+
+/* Estilo base para o dropdown */
+#month-dropdown {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all 0.2s ease;
+}
+
+/* Estilos para o tema claro (padrão) */
+#month-dropdown {
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+}
+
+#month-dropdown .month-option,
+#month-dropdown .year-option {
+    color: #374151;
+    transition: all 0.15s ease;
+}
+
+#month-dropdown .month-option:hover,
+#month-dropdown .year-option:hover {
+    background-color: #e5e7eb;
+}
+
+#month-dropdown .month-option.selected,
+#month-dropdown .year-option.selected,
+#month-dropdown .month-option.bg-blue-100 {
+    background-color: #3b82f6;
+    color: white;
+}
+
+/* Correção específica para os anos no dropdown */
+#month-dropdown .year-option {
+    font-weight: 500;
+    padding: 4px 0;
+}
+
+/* Estilos para o tema escuro */
+html.dark-mode #month-dropdown {
+    background-color: #252836;
+    border-color: #374151;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+html.dark-mode #month-dropdown .month-option,
+html.dark-mode #month-dropdown .year-option {
+    color: #e5e7eb;
+}
+
+html.dark-mode #month-dropdown .month-option:hover,
+html.dark-mode #month-dropdown .year-option:hover {
+    background-color: #3b4a63;
+}
+
+html.dark-mode #month-dropdown .month-option.selected,
+html.dark-mode #month-dropdown .year-option.selected,
+html.dark-mode #month-dropdown .month-option.bg-blue-100 {
+    background-color: #3b82f6;
+    color: white;
+}
+
+html.dark-mode #month-dropdown .border-t {
+    border-top-color: #374151;
+}
+
+/* Melhorar o destaque dos anos selecionados no tema escuro */
+html.dark-mode #month-dropdown .year-option.bg-blue-100 {
+    background-color: #3b82f6;
+    color: white;
+}
+
+/* Animação suave de fade-in para o dropdown */
+@keyframes dropdown-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#month-dropdown.animating {
+    animation: dropdown-fade-in 0.2s ease forwards;
+}
+
+/* Estilos para os dias no calendário */
+#calendar-dates button {
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+/* Estilo para o dia com hover, excluindo o dia atual e o dia selecionado */
+#calendar-dates button:hover:not(.bg-blue-100):not(.ring-2) {
+    background-color: #f3f4f6 !important; /* Cor de hover no tema claro */
+}
+
+/* Preservar o estilo do dia selecionado mesmo quando em hover */
+#calendar-dates button.ring-2:hover {
+    background-color: rgba(59, 130, 246, 0.1) !important; /* Azul claro com transparência */
+    box-shadow: 0 0 0 2px #3b82f6 !important; /* Manter o anel azul visível */
+}
+
+/* Melhorar o hover dos dias no tema escuro, excluindo o dia atual e o dia selecionado */
+html.dark-mode #calendar-dates button:hover:not(.bg-blue-100):not(.ring-2) {
+    background-color: #3b4a63 !important;
+}
+
+/* Preservar o estilo do dia selecionado no tema escuro mesmo quando em hover */
+html.dark-mode #calendar-dates button.ring-2:hover {
+    background-color: rgba(59, 130, 246, 0.2) !important; /* Azul mais escuro com transparência */
+    box-shadow: 0 0 0 2px #3b82f6, 0 0 0 4px rgba(59, 130, 246, 0.3) !important;
+}
+
+/* Melhorar a visibilidade do dia atual no tema escuro */
+html.dark-mode #calendar-dates button.bg-blue-100 {
+    background-color: rgba(59, 130, 246, 0.3) !important;
+    border-color: #3b82f6 !important;
+}
+
+/* Melhorar a visibilidade do dia selecionado no tema escuro */
+html.dark-mode #calendar-dates button.ring-2 {
+    box-shadow: 0 0 0 2px #3b82f6, 0 0 0 4px rgba(59, 130, 246, 0.3);
+}
+
+/* Melhorar o contraste dos indicadores de transação no tema escuro */
+html.dark-mode #calendar-dates .rounded-full.bg-green-500 {
+    background-color: #4ade80 !important;
+    box-shadow: 0 0 3px rgba(74, 222, 128, 0.6);
+}
+
+html.dark-mode #calendar-dates .rounded-full.bg-red-500 {
+    background-color: #f87171 !important;
+    box-shadow: 0 0 3px rgba(248, 113, 113, 0.6);
+}

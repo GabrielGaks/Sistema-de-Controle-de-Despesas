@@ -1,0 +1,72 @@
+/* Enhanced Transaction Styles */
+
+/* Increase size of transaction items */
+.transaction-item {
+    padding: 1rem !important; /* Increased padding */
+    margin-bottom: 12px !important; /* More space between items */
+    transform-origin: center; /* Center transform origin */
+    overflow: hidden; /* Hide overflow content */
+    position: relative; /* Ensure proper stacking context */
+    width: 100%; /* Ensure full width */
+    box-sizing: border-box; /* Include padding in width calculation */
+}
+
+/* Fix hover scaling issue by removing horizontal transform */
+.transaction-item:hover {
+    transform: translateY(-2px); /* Only move vertically, no scaling */
+    z-index: 10; /* Ensure hovered items appear above others */
+}
+
+/* Increase size of transaction description */
+.transaction-description {
+    font-size: 1.2rem !important; /* Larger font size */
+    margin-bottom: 4px; /* Add space below description */
+    white-space: normal; /* Allow text wrapping */
+    word-break: break-word; /* Break long words if needed */
+}
+
+/* Increase size of transaction details */
+.transaction-details {
+    font-size: 1rem !important; /* Larger font size */
+    gap: 10px !important; /* More space between elements */
+    flex-wrap: wrap; /* Allow wrapping of details */
+}
+
+/* Increase size of transaction icon */
+.transaction-icon {
+    width: 40px !important; /* Larger icon container */
+    height: 40px !important;
+    margin-right: 16px !important; /* More space after icon */
+    flex-shrink: 0; /* Prevent icon from shrinking */
+}
+
+/* Make icon itself larger */
+.transaction-icon .material-symbols-outlined {
+    font-size: 24px !important; /* Larger icon */
+}
+
+/* Increase size of transaction amount */
+.transaction-amount {
+    font-size: 1.2rem !important; /* Larger font size */
+    padding-right: 8px; /* Add space before delete button */
+}
+
+/* Increase size of delete button */
+.transaction-actions .material-symbols-outlined {
+    font-size: 22px !important; /* Larger delete icon */
+}
+
+/* Ensure the transaction list container has proper overflow handling */
+#transactions-list {
+    overflow-y: auto;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    padding: 4px; /* Add padding to prevent items from touching edges */
+    max-width: 100%; /* Ensure container doesn't exceed parent width */
+}
+
+/* Add some space at the bottom of the list for better UX */
+#transactions-list::after {
+    content: '';
+    display: block;
+    height: 10px;
+}

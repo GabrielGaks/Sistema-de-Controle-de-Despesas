@@ -1,0 +1,37 @@
+/* Estilos para prevenir o flash de tela branca durante carregamento da página */
+
+/* Aplicar a cor de fundo do tema instantaneamente, sem transição */
+html {
+  background-color: #f3f4f6; /* Cor de fundo do tema claro */
+  transition: none; /* Remover transições para evitar flashes */
+}
+
+/* Aplicar cor de fundo para o tema escuro usando a mesma classe do seu tema atual */
+html.dark-mode {
+  background-color: #1a1c23; /* Cor de fundo do tema escuro */
+}
+
+/* Garantir que o corpo da página mantenha a mesma cor de fundo */
+body {
+  transition: none; /* Remover transições para evitar flashes */
+  min-height: 100vh;
+}
+
+/* Conteúdo da página imediatamente visível */
+.page-content {
+  opacity: 1 !important; /* Forçar opacidade total */
+  transition: none; /* Remover transições */
+}
+
+/* Removendo completamente os efeitos de transição entre páginas */
+.page-transition {
+  display: none !important;
+}
+
+/* Desativar animações de slide */
+.slide-transition, .slide-in, .slide-out {
+  animation: none !important;
+  transition: none !important;
+  transform: none !important;
+  opacity: 1 !important;
+}
