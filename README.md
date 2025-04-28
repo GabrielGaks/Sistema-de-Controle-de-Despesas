@@ -80,7 +80,7 @@ Essa Aplicação foi desenvolvida inteiramente por vibe coding e pelos meus conh
 
 1. Clone o repositório:
    ```
-   git clone https://github.com/GabrielGaks/finance-master.git
+   git clone https://github.com/GabrielGaks/Sistema-de-Controle-de-Despesas.git
    ```
 
 2. Abra o `index2.html` em qualquer navegador moderno.
